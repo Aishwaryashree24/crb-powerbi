@@ -1,0 +1,1 @@
+bop_arr_measure = sum(snowball['bop_arr'])

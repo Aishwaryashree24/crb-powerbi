@@ -1,0 +1,42 @@
+{
+  "config": "{\"version\":\"5.59\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU10\",\"version\":\"5.62\",\"type\":2}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU10",
+            "path": "BaseThemes/CY24SU10.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Page 1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "e532471013b7be967c6c",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"2fedfb0817dbadfb07fc\",\"layouts\":[{\"id\":0,\"position\":{\"x\":69.85074626865672,\"y\":23.283582089552237,\"z\":0,\"width\":1055.8208955223881,\"height\":660,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"waterfallChart\",\"projections\":{\"Category\":[{\"queryRef\":\"snowball.grr\",\"active\":true},{\"queryRef\":\"snowball.eop_arr\"},{\"queryRef\":\"snowball.nrr\"},{\"queryRef\":\"snowball.bop_arr\"},{\"queryRef\":\"snowball.YearTextColumn\"}],\"Y\":[{\"queryRef\":\"Sum(snowball.eop_arr)\"}],\"Breakdown\":[{\"queryRef\":\"snowball.cross_sell\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"s\",\"Entity\":\"snowball\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"nrr\"},\"Name\":\"snowball.nrr\",\"NativeReferenceName\":\"nrr\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"grr\"},\"Name\":\"snowball.grr\",\"NativeReferenceName\":\"grr\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"eop_arr\"},\"Name\":\"snowball.eop_arr\",\"NativeReferenceName\":\"eop_arr\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"bop_arr\"},\"Name\":\"snowball.bop_arr\",\"NativeReferenceName\":\"bop_arr\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"eop_arr\"}},\"Function\":0},\"Name\":\"Sum(snowball.eop_arr)\",\"NativeReferenceName\":\"Sum of eop_arr\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"YearTextColumn\"},\"Name\":\"snowball.YearTextColumn\",\"NativeReferenceName\":\"YearTextColumn\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"cross_sell\"},\"Name\":\"snowball.cross_sell\",\"NativeReferenceName\":\"cross_sell\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"s\"}},\"Property\":\"eop_arr\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 660.00,
+          "width": 1055.82,
+          "x": 69.85,
+          "y": 23.28,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

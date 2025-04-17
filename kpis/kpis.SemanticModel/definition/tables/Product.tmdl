@@ -1,0 +1,53 @@
+table Product
+	lineageTag: 4ccb2992-5d3c-4b64-ac7d-fbe55afd7232
+
+	column ProductID
+		dataType: int64
+		formatString: 0
+		lineageTag: 07823d27-7c9c-488e-9963-f24f6c28ffe8
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: 4596037a-7c1c-4ad2-896a-d6e04ad180dd
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: f970fe49-5fcf-4cdc-adb7-7e0f2461e0f2
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitPrice
+		dataType: int64
+		formatString: 0
+		lineageTag: e84ad9e9-1b76-41d3-a091-7cf303f6c0bf
+		summarizeBy: none
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Product = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets"),
+				    #"C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets\_Product csv" = Source{[#"Folder Path"="C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets\",Name="Product.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets\_Product csv",[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ProductID", Int64.Type}, {"ProductName", type text}, {"Category", type text}, {"UnitPrice", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

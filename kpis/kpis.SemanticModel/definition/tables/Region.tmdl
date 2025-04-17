@@ -1,0 +1,36 @@
+table Region
+	lineageTag: be36c612-08f8-45b9-86a4-5cc59b31a9bf
+
+	column RegionID
+		dataType: int64
+		formatString: 0
+		lineageTag: 933bf4c3-658d-495d-959f-4dbb754ca352
+		summarizeBy: none
+		sourceColumn: RegionID
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionName
+		dataType: string
+		lineageTag: 4a1c185a-affb-4c81-8c40-0fb506ebc51f
+		summarizeBy: none
+		sourceColumn: RegionName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Region = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets"),
+				    #"C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets\_Region csv" = Source{[#"Folder Path"="C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets\",Name="Region.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets\_Region csv",[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"RegionID", Int64.Type}, {"RegionName", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,83 @@
+table customer
+	lineageTag: de2c65ca-25cc-4d82-8b0e-661f596137df
+
+	column customer_key
+		dataType: string
+		lineageTag: 7cc84d9a-f38a-4f90-b8cf-cbaeaa07f767
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_level_1
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c836069-f313-4b6b-b1f5-0e82fb84e54a
+		summarizeBy: none
+		sourceColumn: customer_level_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_level_2
+		dataType: int64
+		formatString: 0
+		lineageTag: cd4827bd-3131-4b65-b471-092e7a6a75ce
+		summarizeBy: none
+		sourceColumn: customer_level_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_name
+		dataType: string
+		lineageTag: 7ece6953-5b1e-4b86-a110-c76ab47573bd
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_country
+		dataType: string
+		lineageTag: f61f1a51-7fe9-4b09-a47d-0647339ac29e
+		summarizeBy: none
+		sourceColumn: customer_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_region
+		dataType: string
+		lineageTag: 3119ad48-bed9-4ba0-91d5-d65edd3a0cf6
+		summarizeBy: none
+		sourceColumn: customer_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_segment
+		dataType: string
+		lineageTag: 94a7619c-4bcc-4e1f-acbd-fe37ae53b6b0
+		summarizeBy: none
+		sourceColumn: customer_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_cohort_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 42f1b0e3-6bb3-43a3-9328-a1759086c5ed
+		summarizeBy: none
+		sourceColumn: customer_cohort_year
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customer = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\AishwaryaShreeH\Downloads\snowball_dataset.xlsx"), null, true),
+				    customer_Sheet = Source{[Item="customer",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(customer_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"customer_key", type text}, {"customer_level_1", Int64.Type}, {"customer_level_2", Int64.Type}, {"customer_name", type text}, {"customer_country", type text}, {"customer_region", type text}, {"customer_segment", type any}, {"customer_cohort_year", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

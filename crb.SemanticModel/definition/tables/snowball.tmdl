@@ -1,0 +1,197 @@
+table snowball
+	lineageTag: bf6fb90b-4d1d-4df4-a48c-acd5c3caafbf
+
+	measure eop_arr_m = sum(snowball[eop_arr])
+		lineageTag: a4df8a78-3e0c-46a3-8f52-a661f2567a64
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure nrr_m = SUM(snowball[nrr])
+		formatString: 0
+		lineageTag: 469cebbd-1d6b-4b22-a2ed-ca46376d3f88
+
+	measure grr_m = SUM(snowball[grr])
+		lineageTag: eb4c86a6-1a65-4f2d-b3b1-166ad1267bf2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure cross_sell_m = sum(snowball[cross_sell])
+		formatString: 0
+		lineageTag: 9faadcbb-8472-44f5-8746-d9a3be984a3c
+
+	measure bop_arr_m = sum(snowball[bop_arr])
+		lineageTag: 24871a0f-ff7c-48e2-8429-56784506b843
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column customer_key
+		dataType: string
+		lineageTag: dfef8faf-7f65-4041-9f27-b162f1517129
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_key
+		dataType: string
+		lineageTag: 6338449e-24a3-4134-928c-b8243ea551b0
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_roll
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6dcb11ad-da5a-41e7-ba4e-ca18e2bef6dd
+		summarizeBy: none
+		sourceColumn: month_roll
+
+		variation Variation
+			isDefault
+			relationship: 7a793348-5d93-41e4-877c-5220a8f1eaeb
+			defaultHierarchy: LocalDateTable_578cb12a-2e86-48b0-8c54-5788cb87bbcd.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column period_type
+		dataType: string
+		lineageTag: 22d12ff6-87f4-4270-9553-4a50c3ee02a1
+		summarizeBy: none
+		sourceColumn: period_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column bop_arr
+		dataType: double
+		lineageTag: 17eb9a84-6d0b-414e-b842-6d7c4689ef41
+		summarizeBy: sum
+		sourceColumn: bop_arr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column customer_churn
+		dataType: double
+		lineageTag: 49025aee-a9ca-49ac-8e32-241a4e1b5e42
+		summarizeBy: sum
+		sourceColumn: customer_churn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column product_churn
+		dataType: double
+		lineageTag: b71fc337-e271-4385-955a-31b2a0f70e75
+		summarizeBy: sum
+		sourceColumn: product_churn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column downsell
+		dataType: double
+		lineageTag: 10b07930-29c5-4939-b427-567ba8c2f0b0
+		summarizeBy: sum
+		sourceColumn: downsell
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column grr
+		dataType: double
+		lineageTag: 46031f8d-32d5-4294-a732-8ba917539304
+		summarizeBy: sum
+		sourceColumn: grr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column upsell
+		dataType: double
+		lineageTag: 9b889d6c-70c5-4c2d-9e0a-f2279bfd3f79
+		summarizeBy: sum
+		sourceColumn: upsell
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cross_sell
+		dataType: int64
+		formatString: 0
+		lineageTag: 285accaf-b746-43f7-ad88-6a0030368776
+		summarizeBy: sum
+		sourceColumn: cross_sell
+
+		annotation SummarizationSetBy = Automatic
+
+	column nrr
+		dataType: double
+		lineageTag: f5588147-2445-4080-94b7-76f00b9ae352
+		summarizeBy: sum
+		sourceColumn: nrr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column new_customer
+		dataType: double
+		lineageTag: 55cd0471-ef28-4d6e-9474-ccdde1f40658
+		summarizeBy: sum
+		sourceColumn: new_customer
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column eop_arr
+		dataType: double
+		lineageTag: 5a048de6-5135-45c3-bfe8-aa8364e2ff7b
+		summarizeBy: sum
+		sourceColumn: eop_arr
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column volume
+		dataType: int64
+		formatString: 0
+		lineageTag: 8f28510b-31c4-4642-b3d4-259c5758e3e2
+		summarizeBy: sum
+		sourceColumn: volume
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearTextColumn = FORMAT('snowball'[month_roll], "YYYY")
+		lineageTag: 3a449dfd-9264-4395-a47f-076be980efa2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition snowball = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\AishwaryaShreeH\Downloads\snowball_dataset.xlsx"), null, true),
+				    snowball_Sheet = Source{[Item="snowball",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(snowball_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"customer_key", type text}, {"product_key", type text}, {"month_roll", type date}, {"period_type", type text}, {"bop_arr", type number}, {"customer_churn", type number}, {"product_churn", type number}, {"downsell", type number}, {"grr", type number}, {"upsell", type number}, {"cross_sell", Int64.Type}, {"nrr", type number}, {"new_customer", type number}, {"eop_arr", type number}, {"volume", Int64.Type}}),
+				    #"Sorted Rows" = Table.Sort(#"Changed Type",{{"month_roll", Order.Ascending}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Sorted Rows", each ([period_type] = "lm") and ([customer_key] = "0092C349B7F4CE3377D05F37E5F31DCE") and ([product_key] = "5A5BC19C97CBAD02CA144A3028E5FCFC"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

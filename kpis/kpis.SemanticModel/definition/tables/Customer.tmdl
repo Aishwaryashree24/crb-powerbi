@@ -1,0 +1,44 @@
+table Customer
+	lineageTag: 9bc6b14d-9725-4106-a6ae-f1a8cc1bf8a2
+
+	column CustomerID
+		dataType: int64
+		formatString: 0
+		lineageTag: 2734a1dc-6e5b-40e1-bd1b-6ddd5d96e2c6
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerName
+		dataType: string
+		lineageTag: 4d1065ef-12a7-480e-be4e-cbb35329f6b5
+		summarizeBy: none
+		sourceColumn: CustomerName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		dataType: string
+		lineageTag: 52e064df-3bb7-423e-a0cc-caf1ed3b1074
+		summarizeBy: none
+		sourceColumn: Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Customer = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets"),
+				    #"C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets\_Customer csv" = Source{[#"Folder Path"="C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets\",Name="Customer.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets\_Customer csv",[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"CustomerID", Int64.Type}, {"CustomerName", type text}, {"Segment", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

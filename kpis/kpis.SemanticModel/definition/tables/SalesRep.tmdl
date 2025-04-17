@@ -1,0 +1,36 @@
+table SalesRep
+	lineageTag: 162ee9c6-db45-432f-b7f6-76bcf3da7f0a
+
+	column SalesRepID
+		dataType: int64
+		formatString: 0
+		lineageTag: ffd17a9e-fd3d-469a-afbb-3c19d02da63d
+		summarizeBy: none
+		sourceColumn: SalesRepID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesRepName
+		dataType: string
+		lineageTag: 4705622e-7c79-4160-9eab-22b5f1e7c5bd
+		summarizeBy: none
+		sourceColumn: SalesRepName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SalesRep = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets"),
+				    #"C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets\_SalesRep csv" = Source{[#"Folder Path"="C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets\",Name="SalesRep.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"C:\Users\PoojaDharshiniBoopat\Desktop\powerbi\datasets\_SalesRep csv",[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"SalesRepID", Int64.Type}, {"SalesRepName", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

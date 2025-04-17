@@ -1,0 +1,107 @@
+table Sales
+	lineageTag: 2b14aaf8-41ac-4eac-b1d3-8c8c2d8b6de8
+
+	column OrderID
+		dataType: int64
+		formatString: 0
+		lineageTag: 252faab5-1c21-47cb-a181-60714c620ed2
+		summarizeBy: count
+		sourceColumn: OrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: ccc6a336-27a9-444d-8838-b98d89f7d888
+		summarizeBy: count
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerID
+		dataType: int64
+		formatString: 0
+		lineageTag: 36a5e41e-3be3-4176-bb12-df9328486738
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductID
+		dataType: int64
+		formatString: 0
+		lineageTag: 14245998-169f-49b3-9110-0707d4d4bbaf
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionID
+		dataType: int64
+		formatString: 0
+		lineageTag: c2f4b6a8-4482-4a4a-8176-b78809161597
+		summarizeBy: none
+		sourceColumn: RegionID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesRepID
+		dataType: int64
+		formatString: 0
+		lineageTag: a24984a1-4751-482e-beac-e7998eaf1de8
+		summarizeBy: none
+		sourceColumn: SalesRepID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: cbf9572e-f094-410b-a59c-6e62cafa9eb0
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesAmount
+		dataType: int64
+		formatString: 0
+		lineageTag: 53624fbb-5d40-4f30-98b0-f31579108c3c
+		summarizeBy: sum
+		sourceColumn: SalesAmount
+
+		annotation SummarizationSetBy = Automatic
+
+	column FormattedDate =
+			
+			DATE(
+			    MID([DateKey], 1, 4),  // Year
+			    MID([DateKey], 5, 2),  // Month
+			    MID([DateKey], 7, 2)   // Day
+			)
+		formatString: General Date
+		lineageTag: be84e24e-693f-4c2a-bdca-5e08a3cac01f
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: c4cd6f6a-4360-461e-b423-363927fe3e50
+			defaultHierarchy: LocalDateTable_63c4788f-d6d9-4b97-975f-3e692dba0175.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sales = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PoojaDharshiniBoopat\Downloads\OrderDetails_Data\OrderDetails_Data\Sales.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"OrderID", Int64.Type}, {"DateKey", Int64.Type}, {"CustomerID", Int64.Type}, {"ProductID", Int64.Type}, {"RegionID", Int64.Type}, {"SalesRepID", Int64.Type}, {"Quantity", Int64.Type}, {"SalesAmount", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,89 @@
+table product
+	lineageTag: 680f4fdc-6a52-48bd-9b76-f34c2f06a0be
+
+	column product_key
+		dataType: string
+		lineageTag: 145de84f-28a8-4a48-b1b1-133b7d984077
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue_type
+		dataType: int64
+		formatString: 0
+		lineageTag: 247c0744-dfcb-4508-8bc7-7f8ffce5d3e6
+		summarizeBy: none
+		sourceColumn: revenue_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_level_1
+		dataType: string
+		lineageTag: aefab068-37f3-4638-8355-b0c2794e409d
+		summarizeBy: none
+		sourceColumn: product_level_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_level_2
+		dataType: string
+		lineageTag: c589b7f8-3af9-4c11-8031-8805cbee93f7
+		summarizeBy: none
+		sourceColumn: product_level_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_dim_1
+		dataType: string
+		lineageTag: 119796ed-5479-4775-953c-ad18ee58ec6d
+		summarizeBy: none
+		sourceColumn: product_dim_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_dim_2
+		dataType: string
+		lineageTag: 0b8d5a8f-07ff-44ad-a4f4-974fc53a0e5a
+		summarizeBy: none
+		sourceColumn: product_dim_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_dim_3
+		dataType: string
+		lineageTag: 94c17fbf-40b6-4479-abec-dcef5b064f2d
+		summarizeBy: none
+		sourceColumn: product_dim_3
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_dim_4
+		dataType: string
+		lineageTag: 5ef0db9d-3ea8-4ca3-9fb5-3cc8380809e1
+		summarizeBy: none
+		sourceColumn: product_dim_4
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_dim_5
+		dataType: string
+		lineageTag: fe7b60ea-84dd-40f1-8951-e617bf32c32a
+		summarizeBy: none
+		sourceColumn: product_dim_5
+
+		annotation SummarizationSetBy = Automatic
+
+	partition product = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\AishwaryaShreeH\Downloads\snowball_dataset.xlsx"), null, true),
+				    product_Sheet = Source{[Item="product",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(product_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"product_key", type text}, {"revenue_type", Int64.Type}, {"product_level_1", type text}, {"product_level_2", type text}, {"product_dim_1", type any}, {"product_dim_2", type any}, {"product_dim_3", type any}, {"product_dim_4", type any}, {"product_dim_5", type any}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
